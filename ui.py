@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+from streamlit_extras.stylable_container import stylable_container
 
 # Configure page layout
 st.set_page_config(page_title="Prompt Generator", layout="wide")
@@ -28,6 +29,8 @@ def send_prompt():
 def main():
     st.title("Prompt Generator")
     
+    st.markdown('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>', unsafe_allow_html=True)
+
     # Load configuration data
     config_data = load_config()
     
@@ -66,37 +69,65 @@ def main():
             
             with col1:
                 # 4. System prompt textarea
-                st.subheader("System Prompt")
+                st.subheader("Prompt")
                 
                 # 5. Large textarea for system prompt (capable of handling ~256KB)
                 system_prompt = st.text_area(
-                    "Edit system prompt:",
+                    "Edit Prompt:",
                     value=selected_method_data["system_prompt"],
                     height=400,
                     max_chars=262144,  # 256KB limit
                     help="Maximum size: 256KB"
                 )
                 
-                # 6. Buttons below textarea
-                col_btn1, col_btn2, col_spacer = st.columns([1, 1, 3])
+                # 6. Buttons below textarea - right aligned
+                col_spacer, col_btn1, col_btn2 = st.columns([5, 1, 1])
                 
                 with col_btn1:
-                    if st.button("Refine Prompt", type="secondary"):
-                        refine_prompt()
+                    with stylable_container(
+                        key="refine_prompt_button",
+                        css_styles=r"""
+                            button p:before {
+                            font-family: 'Font Awesome 5 Free';
+                            content: '\f013';
+                            display: inline-block;
+                            padding-right: 10px;
+                            vertical-align: middle;
+                            font-weight: 900;
+                        }
+                        """,
+                        ):
+                        if st.button("Refine Prompt", type="secondary", use_container_width=True):
+                            refine_prompt()
                 
                 with col_btn2:
-                    if st.button("Send", type="primary"):
-                        send_prompt()
-            
+                    with stylable_container(
+                        key="send_button",
+                        css_styles=r"""
+                            button p:before {
+                            font-family: 'Font Awesome 5 Free';
+                            content: '\f1d8';
+                            display: inline-block;
+                            padding-right: 10px;
+                            vertical-align: middle;
+                            font-weight: 900;
+                        }
+                        """,
+                        ):
+                        if st.button("Send", type="primary", use_container_width=True):
+                            send_prompt()
+                
             with col2:
-                # Display current selections
-                st.subheader("Current Selection")
-                st.write(f"*Farm:* {selected_farm}")
-                st.write(f"*Method:* {selected_method}")
-                if selected_agents:
-                    st.write(f"*Selected Agents:* {', '.join(selected_agents)}")
-                else:
-                    st.write("*Selected Agents:* None")
+                # Display current selections with left padding using columns
+                _, content_col = st.columns([0.1, 0.9], gap='large')
+                with content_col:                    
+                    st.subheader("Current Selection")
+                    st.write(f"*Farm:* {selected_farm}")
+                    st.write(f"*Method:* {selected_method}")
+                    if selected_agents:
+                        st.write(f"*Selected Agents:* {', '.join(selected_agents)}")
+                    else:
+                        st.write("*Selected Agents:* None")
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
