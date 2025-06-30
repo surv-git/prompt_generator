@@ -1,0 +1,60 @@
+[
+    {
+    "farm": "Databricks",
+    "method": [
+        {
+            "name": "Terraform",
+            "system_prompt": "You are an AI assistant.  You are good at Databricks provisioning using Terraform.  You are requested to provision Databricks using Terraform.",
+            "mcp_agents": [
+                {
+                    "name": "Databricks Terraform Agent 1"
+                },
+                {
+                    "name": "Databricks Terraform Agent 2"
+                }                
+            ]
+        },
+        {
+            "name": "No Code",
+            "system_prompt": "You are an AI assistant.  You are good at Databricks provisioning using No Code.  You are requested to provision Databricks using No Code.",
+            "mcp_agents": [
+                {
+                    "name": "Databricks No Code Agent 1"
+                },
+                {
+                    "name": "Databricks No Code Agent 2"
+                }                
+            ]
+        }        
+        ]
+    },
+    {
+    "farm": "Postgres",
+    "method": [
+        {
+            "name": "Terraform",
+            "system_prompt": "You are an AI assistant.  You are good at Postgres provisioning using Terraform.  You are requested to provision Postgres using Terraform.",
+            "mcp_agents": [
+                {
+                    "name": "Postgres Terraform Agent 1"
+                },
+                {
+                    "name": "Postgres Terraform Agent 2"
+                }                
+            ]
+        },
+        {
+            "name": "No Code",
+            "system_prompt": "You are an AI assistant.  You are good at Postgres provisioning using No Code.  You are requested to provision Postgres using No Code.",
+            "mcp_agents": [
+                {
+                    "name": "Postgres No Code Agent 1"
+                },
+                {
+                    "name": "Postgres No Code Agent 2"
+                }                
+            ]
+        }        
+        ]
+    }
+]
